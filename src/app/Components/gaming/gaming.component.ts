@@ -10,42 +10,78 @@ export class GamingComponent implements OnInit {
   public palabras:Array<String>;
   public clave:String;
   public guion:String;
-  public letra:String;
-  public i:number;
+  public letra:string;
   public fallas:boolean;
   public contador:number;
+  public opc:number;
+  public valor:boolean;
+  public point:boolean;
   constructor() {
-    this.palabras=['casa','pelota','perro','gato','elefante']
-    this.clave= this.palabras[Math.floor(Math.random()*this.palabras.length)]
-    this.guion = this.clave.replace(/./g,"_ ")
+    this.palabras=[]
+    this.clave= ""
+    this.guion = ""
     this.letra = ""
-    this.i=0
     this.fallas=true
     this.contador=0
+    this.opc=0
+    this.valor=false
+    this.point=false
    }
 
   ngOnInit(): void {
   }
 
+  elegir(){
+    this.valor = true
+    if(this.opc == 1){
+      this.palabras = ['titanic','cars','hulk','annabelle']
+      this.clave= this.palabras[Math.floor(Math.random()*this.palabras.length)]
+      this.guion = this.clave.replace(/./g,"_ ")
+    }else if(this.opc == 2){
+      this.palabras = ['futbol','volley','tenis','natacion']
+      this.clave= this.palabras[Math.floor(Math.random()*this.palabras.length)]
+      this.guion = this.clave.replace(/./g,"_ ")
+    }else if (this.opc == 3){
+      this.palabras = ['verano','invierno','primavera','otoño']
+      this.clave= this.palabras[Math.floor(Math.random()*this.palabras.length)]
+      this.guion = this.clave.replace(/./g,"_ ")
+    }else{
+      this.palabras=['casa','pelota','perro','gato','elefante','pez']
+      this.clave= this.palabras[Math.floor(Math.random()*this.palabras.length)]
+      this.guion = this.clave.replace(/./g,"_ ")
+    }
+  }
+
   enviar(){
-    for(let index of this.clave){
-     if(this.letra == this.clave.charAt(this.i)){
-        alert("bueno")
+    if(this.letra == ''){
+      alert("Complete el campo")
+      return
+    }
+    if(!/^[a-zA-Z]*$/g.test(this.letra)){
+      alert("Ingrese solo letras")
+      this.letra = ""
+      return
+    }
+
+    for(let index in this.clave){
+     if(this.letra == this.clave[index]){
+        this.guion = this.guion.substr(0,parseInt(index)*2)+this.letra+this.guion.substr((parseInt(index)*2)+this.letra.length)
         this.fallas =  false
      }
-     this.i++
     }
 
     if(this.fallas){
       this.contador++
-      alert(this.contador)
     }else{
       if(this.guion.indexOf('_')<0){
-        alert("victoria")
         this.contador == 0
+        this.opc = 0
+        this.valor = false
+        this.point =  true
       }
     }
 
     this.letra = ""
+
   }
 }

@@ -1,22 +1,31 @@
 <div>
   <h1>Juego del ahorcado</h1>
-  <p>Introduzca una letra</p>
-  <input type="text" class="form-control" maxlength="1" [(ngModel)]="letra"><br>
-  <button class="btn btn-primary" (click)="enviar()">Enviar</button>
-</div>
-{{clave}}
-<div>
-  {{guion}}
+  <span>Seleccione el campo que desea jugar:</span>
+  <select class="form-select" aria-label="Default select example" (change)="elegir()" [(ngModel)]="opc" >
+    <option selected disabled>.........</option>
+    <option value="1">Peliculas</option>
+    <option value="2">Deportes</option>
+    <option value="3">Estaciones</option>
+    <option value="4">Otros</option>
+  </select>
+  <div *ngIf="valor == true">
+    <p>Introduzca una letra</p>
+    <input type="text" class="form-control" maxlength="1" [(ngModel)]="letra" ><br>
+    <button class="btn btn-primary" (click)="enviar()">Enviar</button>
+    <div class="alert alert-primary text-center" role="alert" style="margin-top: 10px;font-size:20px">
+      <span>{{guion}}</span>
+    </div>
+  </div>
 </div>
 <br>
 <div *ngIf="contador ==0">
   <div id="ahorcado"></div>
 </div>
 <div *ngIf="contador == 1">
-  <div id="ahorcado" [style.backgroundPosition]="contador>0 ? '-225px': ''"></div>
+  <div id="ahorcado" [style.backgroundPosition]="contador>0 ? '-230px': ''"></div>
 </div>
 <div *ngIf="contador == 2">
-  <div id="ahorcado" [style.backgroundPosition]="contador>1 ? '-420px': ''"></div>
+  <div id="ahorcado" [style.backgroundPosition]="contador>1 ? '-430px': ''"></div>
 </div>
 <div *ngIf="contador == 3">
   <div id="ahorcado" [style.backgroundPosition]="contador>=0 ? '-630px': ''"></div>
@@ -28,4 +37,6 @@
   <h1>Perdiste</h1>
   <span>Intenta de nuevo</span>
 </div>
-
+<div *ngIf="point == true" class="alert alert-success text-center" role="alert" style="margin-top: 45px;">
+  <span>Felicidades!!</span>
+</div>
