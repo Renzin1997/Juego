@@ -53,11 +53,12 @@ export class GamingComponent implements OnInit {
   }
 
   enviar(){
+    this.fallas = true
     if(this.letra == ''){
       alert("Complete el campo")
       return
     }
-    if(!/^[a-zA-Z]*$/g.test(this.letra)){
+    if(!/^[a-zA-Z\ñ]*$/g.test(this.letra)){
       alert("Ingrese solo letras")
       this.letra = ""
       return
@@ -65,6 +66,7 @@ export class GamingComponent implements OnInit {
 
     for(let index in this.clave){
      if(this.letra == this.clave[index]){
+        console.log(this.letra)
         this.guion = this.guion.substr(0,parseInt(index)*2)+this.letra+this.guion.substr((parseInt(index)*2)+this.letra.length)
         this.fallas =  false
      }
@@ -74,7 +76,7 @@ export class GamingComponent implements OnInit {
       this.contador++
     }else{
       if(this.guion.indexOf('_')<0){
-        this.contador == 0
+        this.contador = 0
         this.opc = 0
         this.valor = false
         this.point =  true
